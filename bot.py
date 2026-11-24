@@ -348,13 +348,12 @@ def telegram_webhook():
     return "OK", 200
 
 
+webhook_url = os.environ.get("RENDER_EXTERNAL_URL")
+
+if webhook_url:
+    bot.set_webhook(url=f"{webhook_url}/telegram")
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
-
-    webhook_url = os.environ.get("RENDER_EXTERNAL_URL")
-
-    if webhook_url:
-        bot.remove_webhook()
-        bot.set_webhook(url=f"{webhook_url}/telegram")
-
     app.run(host="0.0.0.0", port=port)
+    
